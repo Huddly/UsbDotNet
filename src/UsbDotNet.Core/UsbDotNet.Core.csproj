@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <RootNamespace>UsbDotNet.Core</RootNamespace>
-        <PackageId>UsbDotNet.Core</PackageId>
+        <PackageId>Huddly.UsbDotNet.Core</PackageId>
         <Description>UsbDotNet core types</Description>
     </PropertyGroup>
 </Project>

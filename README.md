@@ -3,7 +3,7 @@
 A modern, cross platform C# binding for [libusb](https://libusb.info/).  
 Copyright (c) 2026 Thomas Mittet, project URL: https://github.com/tmittet/UsbDotNet/.  
 
-NuGet packages: https://www.nuget.org/packages/UsbDotNet/.  
+NuGet packages: https://www.nuget.org/packages/Huddly.UsbDotNet/.  
 
 ## License
 
