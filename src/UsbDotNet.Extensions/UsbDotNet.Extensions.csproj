@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <RootNamespace>UsbDotNet.Extensions</RootNamespace>
-        <PackageId>UsbDotNet.Extensions</PackageId>
+        <PackageId>Huddly.UsbDotNet.Extensions</PackageId>
         <Description>UsbDotNet device class specific extensions</Description>
     </PropertyGroup>
     <ItemGroup>

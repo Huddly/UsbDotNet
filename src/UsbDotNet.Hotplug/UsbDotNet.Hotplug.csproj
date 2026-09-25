@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <RootNamespace>UsbDotNet.Hotplug</RootNamespace>
-        <PackageId>UsbDotNet.Hotplug</PackageId>
+        <PackageId>Huddly.UsbDotNet.Hotplug</PackageId>
         <Description>Async-streaming USB hotplug monitoring for UsbDotNet</Description>
     </PropertyGroup>
     <ItemGroup>

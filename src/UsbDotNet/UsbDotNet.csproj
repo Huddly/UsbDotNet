@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <RootNamespace>UsbDotNet</RootNamespace>
-        <PackageId>UsbDotNet</PackageId>
+        <PackageId>Huddly.UsbDotNet</PackageId>
         <Description>USB library for .NET</Description>
     </PropertyGroup>
     <ItemGroup>
