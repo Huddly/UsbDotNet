@@ -290,10 +290,54 @@ jobs:
         path: |
           out/nuget/Huddly.UsbDotNet.*.nupkg
 
+  sign:
+    name: Sign NuGet packages
+    runs-on: windows-latest
+    needs: build
+    if: github.event_name == 'release' && github.event.action == 'published'
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Download Huddly.UsbDotNet NuGet packages 📥
+      uses: actions/download-artifact@v8
+      with:
+        name: huddly-usbdotnet-nuget-${{ github.run_id }}
+        path: out/nuget
+
+    - name: Install .NET sign tool
+      run: dotnet tool install --tool-path . sign --version 0.9.1-beta.24469.1
+
+    - name: Azure Login using Huddly Service Principal 🔑
+      uses: azure/login@v1
+      with:
+        creds: "${{ secrets.USBDOTNET_AZURE_CREDENTIALS }}"
+        allow-no-subscriptions: true
+
+    - name: Sign artifacts in '${{ github.workspace }}/out/nuget' ✍️
+      shell: pwsh
+      run: >
+        ./sign code azure-key-vault
+        **/*
+        --timestamp-url "http://timestamp.digicert.com"
+        --base-directory "${{ github.workspace }}/out/nuget"
+        --publisher-name "Huddly"
+        --description "Huddly AS"
+        --description-url "https://www.huddly.com/"
+        --azure-key-vault-url "${{ vars.HUDDLY_AZURE_HSM_CERTIFICATE_VAULT_URL }}"
+        --azure-key-vault-certificate "${{ vars.HUDDLY_AZURE_HSM_CODE_SIGN_CERT_NAME }}"
+
+    - name: Upload signed NuGet packages 📤
+      uses: actions/upload-artifact@v7
+      with:
+        name: huddly-usbdotnet-nuget-signed-${{ github.run_id }}
+        path: |
+          out/nuget/*.nupkg
+
   publish-to-github:
     name: Publish NuGet packages to GitHub
     runs-on: ubuntu-latest
-    needs: build
+    needs: sign
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
@@ -307,7 +351,7 @@ jobs:
     - name: Download Huddly.UsbDotNet NuGet packages 📥
       uses: actions/download-artifact@v8
       with:
-        name: huddly-usbdotnet-nuget-${{ github.run_id }}
+        name: huddly-usbdotnet-nuget-signed-${{ github.run_id }}
         path: out/nuget
 
     - name: Add GitHub packages source
@@ -334,7 +378,7 @@ jobs:
   publish-to-nuget:
     name: Publish NuGet packages to nuget.org
     runs-on: ubuntu-latest
-    needs: build
+    needs: sign
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
@@ -348,7 +392,7 @@ jobs:
     - name: Download Huddly.UsbDotNet NuGet packages 📥
       uses: actions/download-artifact@v8
       with:
-        name: huddly-usbdotnet-nuget-${{ github.run_id }}
+        name: huddly-usbdotnet-nuget-signed-${{ github.run_id }}
         path: out/nuget
 
     - name: Push packages to nuget.org 📤
