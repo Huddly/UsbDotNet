@@ -4,7 +4,7 @@
         <CurrentYear>2026</CurrentYear>
         <Copyright>Copyright (c) $(CurrentYear) $(Authors)</Copyright>
         <RootNamespace>UsbDotNet.LibUsbNative</RootNamespace>
-        <PackageId>UsbDotNet.LibUsbNative</PackageId>
+        <PackageId>Huddly.UsbDotNet.LibUsbNative</PackageId>
         <Description>.NET wrapper for the libusb library</Description>
         <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
